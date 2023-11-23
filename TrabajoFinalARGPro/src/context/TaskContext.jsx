@@ -1,9 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react';
 
 export const TaskContext = createContext();
 
 const TaskProvider = ({children}) => {
     const [tasks , setTasks] = useState([]);
+    const [taskIdCounter, setTaskIdCounter] = useState(1);
 
     useEffect(() => {
         const savedTasks = getTasksFromLocalStorage();
@@ -24,11 +25,13 @@ const TaskProvider = ({children}) => {
   };
 
   const addTask = (newTask) => {
-    const updatedTasks = [...tasks, newTask];
+    const taskWithId = { ...newTask, id: taskIdCounter };
+    const updatedTasks = [...tasks, taskWithId];
     setTasks(updatedTasks);
+    setTaskIdCounter(taskIdCounter + 1);
     saveTasksToLocalStorage(updatedTasks);
   };
-
+  
   const updateTask = (taskId, updatedTask) => {
     const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, ...updatedTask } : task
