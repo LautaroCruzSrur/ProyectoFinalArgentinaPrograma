@@ -28,11 +28,22 @@ const TaskTable = () => {
           Swal.fire("No se realizaron Cambios", "", "info");
         }
       });
-  } 
+  };
+  const handleChange = (task, id) =>{
+    if(task.state == true){
+      task.state = false;
+      updateTask(id,task)
+    }else{
+      task.state = true;
+      updateTask(id,task)
+    }
+    
+  }
 
   return (
     <>
       <Container>
+        <h1>Lista de Tareas</h1>
         <Table responsive>
           <thead>
             <tr>
@@ -46,13 +57,13 @@ const TaskTable = () => {
           </thead>
           <tbody>
             {tasks.map((task, index) => (
-              <tr key={task.id} className={task.completed ? 'completed' : ''}>
+              <tr key={task.id}>
                 <td>
                 <Form.Check
         type="checkbox"
         aria-label="option 1"
         checked={task.completed}
-        onClick={() => handleDelete(task.id)}
+        onClick={() => handleChange(task,task.id)}
       />
                 </td>
                 <td>{task.title}</td>
