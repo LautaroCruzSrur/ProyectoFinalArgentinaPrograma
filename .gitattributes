@@ -1,0 +1,6 @@
+# En el archivo .gitattributes
+* text eol=lf
+
+# Configurar para archivos específicos, como .js o .jsx
+*.js text eol=lf
+*.jsx text eol=lf
